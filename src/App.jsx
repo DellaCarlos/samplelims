@@ -2,24 +2,23 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AppHeader from "./components/AppHeader";
-import { useNavigate } from "react-router-dom";
+import SecondP from "./pages/SecondP";
+import FirstP from "./pages/FirstP";
 
 function App() {
-  const navigate = useNavigate();
-
   return (
-    <div>
-      <h1>Teste</h1>
+    <BrowserRouter>
       <AppHeader />
-      <button
-        onClick={() => navigate(`/second`)}
-        className="bg-slate-400 p-2 rounded-md text-white"
-      >
-        Segunda pagina
-      </button>
-    </div>
+      <main>
+        <Routes>
+          <Route path="/" element={<FirstP />} />
+          <Route path="/sec" element={<SecondP />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 

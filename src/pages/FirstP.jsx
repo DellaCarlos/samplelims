@@ -1,11 +1,11 @@
 import AppHeader from "../components/AppHeader";
 
-function SecondP() {
+function FirstP() {
   return (
     <div>
-      <h1>Second page</h1>
+      <h1>First page</h1>
     </div>
   );
 }
 
-export default SecondP;
+export default FirstP;
