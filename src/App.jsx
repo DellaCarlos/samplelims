@@ -15,7 +15,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<FirstP />} />
-          <Route path="/sec" element={<SecondP />} />
+          <Route path="/samples" element={<SecondP />} />
         </Routes>
       </main>
     </BrowserRouter>

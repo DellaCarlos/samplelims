@@ -1,14 +1,42 @@
-const navItems = [
-  { label: "Samples", href: "/" },
-  { label: "New Sample", href: "/samples/new" },
-];
+import { Link, useLocation } from "react-router-dom";
+import { FlaskConical } from "lucide-react";
+import { cn } from "../lib/utils"
 
 function AppHeader() {
+  const navItems = [
+    { label: "Samples", href: "/" },
+    { label: "New Sample", href: "/samples" },
+  ];
+
   return (
-    <div>
-      Header
-    </div>
-  )
+    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-sm">
+      <div className="container flex h-16 items-center gap-8">
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-semibold text-primary"
+        >
+          <FlaskConical className="h-5 w-5" />
+          <span>SampleLims</span>
+        </Link>
+        <nav className="flex items-center gap-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={cn(
+                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary",
+                location.pathname === item.href
+                  ? "bg-secondary text-foreground"
+                  : "text-muted-foreground",
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
 }
 
 export default AppHeader;
