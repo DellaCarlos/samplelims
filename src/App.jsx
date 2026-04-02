@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <AppHeader />
-      <main>
+      <main className="container py-8">
         <Routes>
           <Route path="/" element={<FirstP />} />
           <Route path="/samples" element={<SecondP />} />
