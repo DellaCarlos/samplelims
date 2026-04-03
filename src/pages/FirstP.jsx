@@ -3,7 +3,7 @@ import AppHeader from "../components/AppHeader";
 function FirstP() {
   return (
     <div>
-      <h1>First page</h1>
+      <h1>First page!</h1>
     </div>
   );
 }

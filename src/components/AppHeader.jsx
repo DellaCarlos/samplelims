@@ -3,6 +3,7 @@ import { FlaskConical, TestTubeDiagonalIcon, WheatIcon } from "lucide-react";
 import { cn } from "../lib/utils";
 
 const navItems = [
+  { label: "Home", href: "/" },
   { label: "Samples", href: "/samples" },
   { label: "New Sample", href: "/samples/new" },
 ];
