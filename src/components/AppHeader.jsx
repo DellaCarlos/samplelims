@@ -11,7 +11,7 @@ function AppHeader() {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center gap-8">
         <Link
           to="/"
