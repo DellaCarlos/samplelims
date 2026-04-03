@@ -1,21 +1,23 @@
-import { Link, useLocation } from "react-router-dom";
-import { FlaskConical } from "lucide-react";
-import { cn } from "../lib/utils"
+import { Link, useLocation } from "react-router";
+import { FlaskConical, TestTubeDiagonalIcon, WheatIcon } from "lucide-react";
+import { cn } from "../lib/utils";
+
+const navItems = [
+  { label: "Samples", href: "/samples" },
+  { label: "New Sample", href: "/samples/new" },
+];
 
 function AppHeader() {
-  const navItems = [
-    { label: "Samples", href: "/" },
-    { label: "New Sample", href: "/samples" },
-  ];
+  const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center gap-8">
         <Link
           to="/"
           className="flex items-center gap-2 font-semibold text-primary"
         >
-          <FlaskConical className="h-5 w-5" />
+          <WheatIcon className="h-5 w-5" />
           <span>SampleLims</span>
         </Link>
         <nav className="flex items-center gap-1">

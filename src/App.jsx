@@ -3,6 +3,7 @@ import "./App.css";
 import AppHeader from "./components/AppHeader";
 import SecondP from "./pages/SecondP";
 import FirstP from "./pages/FirstP";
+import SampleHome from "./pages/SampleHome";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <AppHeader />
       <main className="container py-8">
         <Routes>
-          <Route path="/" element={<FirstP />} />
-          <Route path="/samples" element={<SecondP />} />
+          <Route path="/" element={<SampleHome />} />
+          <Route path="/samples" element={<FirstP />} />
+          <Route path="/samples/new" element={<SecondP />} />
         </Routes>
       </main>
     </BrowserRouter>
