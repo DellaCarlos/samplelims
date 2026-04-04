@@ -3,7 +3,7 @@ import AppHeader from "../components/AppHeader";
 function SecondP() {
   return (
     <div>
-      <h1>Second page</h1>
+      <h1>PAGINA 2</h1>
     </div>
   );
 }

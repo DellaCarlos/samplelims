@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8000";
 
 async function samplesClient(endpoint, { method = "GET", body } = {}) {
   const headers = { "Content-Type": "application/json" };
@@ -11,7 +11,7 @@ async function samplesClient(endpoint, { method = "GET", body } = {}) {
 
   if (!res.ok) {
     const erro = await res.json().catch(() => ({}));
-    throw new Error(erro.message || "Erro na requisição");
+    throw new Error(erro.message || "/samples -> Erro na requisição");
   }
 
   return res.json();

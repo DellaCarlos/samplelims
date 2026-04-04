@@ -14,6 +14,7 @@ export function SamplesList() {
             <th style={{ padding: "12px 16px", fontWeight: 600, color: "#111827", textAlign: "left" }}>ID</th>
             <th style={{ padding: "12px 16px", fontWeight: 600, color: "#111827", textAlign: "left" }}>Name</th>
             <th style={{ padding: "12px 16px", fontWeight: 600, color: "#111827", textAlign: "left" }}>Sector</th>
+            <th style={{ padding: "12px 16px", fontWeight: 600, color: "#111827", textAlign: "left" }}>Ativo</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@ export function SamplesList() {
               <td style={{ padding: "12px 16px", color: "#6b7280", textAlign: "left" }}>{sample.id_sample}</td>
               <td style={{ padding: "12px 16px", color: "#111827", fontWeight: 500, textAlign: "left" }}>{sample.name_sample}</td>
               <td style={{ padding: "12px 16px", color: "#374151", textAlign: "left" }}>{sample.sector_sample}</td>
+              <td style={{ padding: "12px 16px", color: "#374151", textAlign: "left" }}>{String(sample.is_active_sample)}</td>
             </tr>
           ))}
         </tbody>
