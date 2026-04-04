@@ -1,9 +1,12 @@
 import AppHeader from "../components/AppHeader";
+import { SamplesList } from "../components/SampleList";
 
-function FirstP() {
+export function FirstP() {
   return (
-    <div>
-      <h1>First page!</h1>
+    <div className="space-y-26">
+      <div>
+        <SamplesList />
+      </div>
     </div>
   );
 }

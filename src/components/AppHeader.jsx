@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router";
-import { FlaskConical, TestTubeDiagonalIcon, WheatIcon } from "lucide-react";
+import { WheatIcon } from "lucide-react";
 import { cn } from "../lib/utils";
 
 const navItems = [
