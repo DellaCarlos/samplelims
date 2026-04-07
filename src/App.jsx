@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AppHeader from "./components/AppHeader";
-import SecondP from "./pages/SecondP";
 import FirstP from "./pages/FirstP";
 import SampleHome from "./pages/SampleHome";
+import SampleCreate from "./pages/SampleCreate";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SampleHome />} />
           <Route path="/samples" element={<FirstP />} />
-          <Route path="/samples/new" element={<SecondP />} />
+          <Route path="/samples/new" element={<SampleCreate />} />
         </Routes>
       </main>
     </BrowserRouter>
