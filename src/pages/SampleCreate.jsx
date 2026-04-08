@@ -4,6 +4,15 @@ import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import { SECTORS, ANALYSES } from "../types/samples-type";
+
 
 function SampleCreate() {
   const navigate = useNavigate();
@@ -51,11 +60,24 @@ function SampleCreate() {
       >
         <div className="space-y-2 text-left">
           <Label htmlFor="name">Sample Name *</Label>
-          <Input id="name" placeholder="e.g. Blood Culture A-2024" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input
+            id="name"
+            placeholder="e.g. Blood Culture A-2024"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label>Sector *</Label>
+          <Select value={sector} onValueChange={setSector}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a sector" />
+            </SelectTrigger>
+          </Select>
         </div>
 
 
-        
       </form>
     </div>
   );

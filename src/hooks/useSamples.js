@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { samplesApi } from "../api/endpoints/samples";
-/** @typedef {import("../types/sample").Sample} Sample */
+/** @typedef {import("../types/samples-type").Sample} Sample */
 
 export function useSamples() {
   /** @type {[Sample[], Function]} */
