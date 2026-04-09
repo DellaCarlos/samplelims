@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowLeftIcon } from "lucide-react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
+import { Checkbox } from "../components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -11,8 +12,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { SECTORS, ANALYSES } from "../types/samples-type";
-
+import { SECTORS } from "../types/sector-type";
+import { ANALYSES } from "../types/analyses-type";
+import { toast } from "sonner";
 
 function SampleCreate() {
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ function SampleCreate() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 text-left">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
           <ArrowLeftIcon className="h-4 w-4" />
@@ -58,7 +60,7 @@ function SampleCreate() {
         onSubmit={handleSubmit}
         className="space-y-6 rounded-lg border bg-card p-6"
       >
-        <div className="space-y-2 text-left">
+        <div className="space-y-2">
           <Label htmlFor="name">Sample Name *</Label>
           <Input
             id="name"
@@ -74,10 +76,46 @@ function SampleCreate() {
             <SelectTrigger>
               <SelectValue placeholder="Select a sector" />
             </SelectTrigger>
+            <SelectContent>
+              {SECTORS.map((s) => (
+                <SelectItem key={s} value={s}>
+                  {s}
+                </SelectItem>
+              ))}
+            </SelectContent>
           </Select>
         </div>
 
+        <div className="space-y-3">
+          <Label>Analyses *</Label>
+          <div className="grid grid-cols-2 gap-3">
+            {ANALYSES.map((analysis) => (
+              <label
+                key={analysis}
+                className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-secondary/50 transition-colors has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5"
+              >
+                <Checkbox
+                  checked={selectedAnalyses.includes(analysis)}
+                  onCheckedChange={() => toggleAnalysis(analysis)}
+                />
+                <span className="text-sm">{analysis}</span>
+              </label>
+            ))}
+          </div>
+        </div>
 
+        <div>
+          <Label>Creation Date</Label>
+          <Input type="text" value={new Date().toLocaleDateString()} disabled className="bg-muted" />
+          <p className="text-xs text-muted-foreground">Automatically set to today.</p>
+        </div>
+
+        <div className="flex gap-3 pt-4 border-t border-border">
+          <Button type="submit">Create Sample</Button>
+          <Button type="button" variant="outline" onClick={() => navigate("/")}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </div>
   );

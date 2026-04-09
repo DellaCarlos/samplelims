@@ -10,7 +10,7 @@ export function useSamples() {
 
   useEffect(() => {
     samplesApi
-      .list()
+      .getAll()
       .then(setSamples)
       .catch((e) => setErro(e.message))
       .finally(() => setLoading(false));
