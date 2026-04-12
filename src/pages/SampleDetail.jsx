@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { format } from "date-fns";
+import { ArrowLeft, Pencil, Save, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -16,36 +17,66 @@ import {
 } from "../components/ui/select";
 import { StatusIndicator } from "../components/StatusIndicator";
 import { toast } from "sonner";
-
-
-import { SamplesList } from "../components/SampleList";
+import { useSamples } from "../hooks/useSamples";
 
 export default function SampleDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const sample = mockSamples.find((s) => s.id_sample === Number(id));
- 
+  const { samples, loading, erro } = useSamples();
+  const sample = samples.find((s) => s.id_sample === Number(id));
+
   const [editing, setEditing] = useState(false);
-  const [name, setName] = useState(sample?.name_sample ?? "");
-  const [sector, setSector] = useState(sample?.sector_sample ?? "");
-  const [analyses, setAnalyses] = useState(sample?.analysis_sample ?? []);
-  const [isActive, setIsActive] = useState(sample?.is_active_sample ?? true);
- 
+  const [name, setName] = useState("");
+  const [sector, setSector] = useState("");
+  const [analyses, setAnalyses] = useState([]);
+  const [isActive, setIsActive] = useState(true);
+
+  useEffect(() => {
+    if (sample) {
+      setName(sample.name_sample);
+      setSector(sample.sector_sample);
+      setAnalyses(sample.analysis_sample);
+      setIsActive(sample.is_active_sample);
+    }
+  }, [sample]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20 text-muted-foreground">
+        <p className="text-sm">Loading sample...</p>
+      </div>
+    );
+  }
+
+  if (erro) {
+    return (
+      <div className="flex items-center justify-center py-20 text-destructive">
+        <p className="text-sm">Error: {erro}</p>
+      </div>
+    );
+  }
+
   if (!sample) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
         <p className="text-lg">Sample not found.</p>
-        <Button variant="outline" className="mt-4" onClick={() => navigate("/")}>
+        <Button
+          variant="outline"
+          className="mt-4"
+          onClick={() => navigate("/")}
+        >
           Back to Samples
         </Button>
       </div>
     );
   }
- 
+
   const toggleAnalysis = (a) => {
-    setAnalyses((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
+    setAnalyses((prev) =>
+      prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a],
+    );
   };
- 
+
   const handleSave = () => {
     if (!name.trim() || !sector || analyses.length === 0) {
       toast.error("Please fill in all required fields.");
@@ -54,7 +85,7 @@ export default function SampleDetail() {
     toast.success("Sample updated successfully!");
     setEditing(false);
   };
- 
+
   const handleCancel = () => {
     setName(sample.name_sample);
     setSector(sample.sector_sample);
@@ -62,7 +93,7 @@ export default function SampleDetail() {
     setIsActive(sample.is_active_sample);
     setEditing(false);
   };
- 
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
@@ -74,7 +105,9 @@ export default function SampleDetail() {
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               Sample #{sample.id_sample}
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">View and edit sample details.</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              View and edit sample details.
+            </p>
           </div>
         </div>
         {!editing ? (
@@ -95,7 +128,7 @@ export default function SampleDetail() {
           </div>
         )}
       </div>
- 
+
       <div className="rounded-lg border border-border bg-card p-6 space-y-6">
         {/* Status */}
         <div className="flex items-center justify-between rounded-md bg-secondary/50 p-4">
@@ -104,7 +137,9 @@ export default function SampleDetail() {
           </div>
           {editing && (
             <div className="flex items-center gap-2">
-              <Label htmlFor="active-toggle" className="text-sm">Active</Label>
+              <Label htmlFor="active-toggle" className="text-sm">
+                Active
+              </Label>
               <Switch
                 id="active-toggle"
                 checked={isActive}
@@ -113,7 +148,7 @@ export default function SampleDetail() {
             </div>
           )}
         </div>
- 
+
         {/* Name */}
         <div className="space-y-2">
           <Label>Sample Name</Label>
@@ -123,7 +158,7 @@ export default function SampleDetail() {
             <p className="text-sm font-medium">{sample.name_sample}</p>
           )}
         </div>
- 
+
         {/* Sector */}
         <div className="space-y-2">
           <Label>Sector</Label>
@@ -134,7 +169,9 @@ export default function SampleDetail() {
               </SelectTrigger>
               <SelectContent>
                 {SECTORS.map((s) => (
-                  <SelectItem key={s} value={s}>{s}</SelectItem>
+                  <SelectItem key={s} value={s}>
+                    {s}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -142,7 +179,7 @@ export default function SampleDetail() {
             <Badge variant="secondary">{sample.sector_sample}</Badge>
           )}
         </div>
- 
+
         {/* Analyses */}
         <div className="space-y-3">
           <Label>Analyses</Label>
@@ -164,31 +201,50 @@ export default function SampleDetail() {
           ) : (
             <div className="flex flex-wrap gap-2">
               {sample.analysis_sample.map((a) => (
-                <Badge key={a} variant="outline">{a}</Badge>
+                <Badge key={a} variant="outline">
+                  {a}
+                </Badge>
               ))}
             </div>
           )}
         </div>
- 
+
         {/* Metadata */}
         <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">Created At</Label>
-            <p className="text-sm">{format(new Date(sample.created_at_sample), "MMM dd, yyyy 'at' HH:mm")}</p>
+            <p className="text-sm">
+              {format(
+                new Date(sample.created_at_sample),
+                "MMM dd, yyyy 'at' HH:mm",
+              )}
+            </p>
           </div>
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">Updated At</Label>
-            <p className="text-sm">{format(new Date(sample.updated_at_sample), "MMM dd, yyyy 'at' HH:mm")}</p>
+            <p className="text-sm">
+              {format(
+                new Date(sample.updated_at_sample),
+                "MMM dd, yyyy 'at' HH:mm",
+              )}
+            </p>
           </div>
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">Created By</Label>
-            <p className="text-sm font-mono">{sample.created_by_user_id_sample}</p>
+            <p className="text-sm font-mono">
+              {sample.created_by_user_id_sample}
+            </p>
           </div>
           {sample.deleted_at_sample && (
             <div className="space-y-1">
-              <Label className="text-xs text-muted-foreground">Deleted At</Label>
+              <Label className="text-xs text-muted-foreground">
+                Deleted At
+              </Label>
               <p className="text-sm text-destructive">
-                {format(new Date(sample.deleted_at_sample), "MMM dd, yyyy 'at' HH:mm")}
+                {format(
+                  new Date(sample.deleted_at_sample),
+                  "MMM dd, yyyy 'at' HH:mm",
+                )}
               </p>
             </div>
           )}

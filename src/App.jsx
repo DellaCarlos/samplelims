@@ -2,27 +2,30 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import { Toaster } from "./components/ui/toaster";
-
-import "./App.css";
 import AppHeader from "./components/AppHeader";
-import SampleHome from "./pages/SampleHome";
+import "./App.css";
+
+import Index from "./pages/Index";
+import SampleList from "./pages/SampleList";
 import SampleCreate from "./pages/SampleCreate";
-import SampleDetail from "./pages/SampleDetail"
+import SampleDetail from "./pages/SampleDetail";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Sonner />
       <Toaster />
+      <Sonner />
       <BrowserRouter>
         <AppHeader />
         <main className="container py-8">
           <Routes>
-            <Route path="/" element={<SampleHome />} />
-            <Route path="/samples/:id" element={<SampleDetail />} />
+            <Route path="/" element={<SampleList />} />
             <Route path="/samples/new" element={<SampleCreate />} />
+            <Route path="/samples/:id" element={<SampleDetail  />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </BrowserRouter>
