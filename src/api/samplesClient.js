@@ -11,7 +11,7 @@ async function samplesClient(endpoint, { method = "GET", body } = {}) {
 
   if (!res.ok) {
     const erro = await res.json().catch(() => ({}));
-    throw new Error(erro.message || "/samples -> Erro na requisição");
+    throw new Error(erro.message || "/api/v1 -> Erro na requisição");
   }
 
   return res.json();

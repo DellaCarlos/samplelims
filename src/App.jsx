@@ -5,9 +5,9 @@ import { Toaster } from "./components/ui/toaster";
 
 import "./App.css";
 import AppHeader from "./components/AppHeader";
-import FirstP from "./pages/FirstP";
 import SampleHome from "./pages/SampleHome";
 import SampleCreate from "./pages/SampleCreate";
+import SampleDetail from "./pages/SampleDetail"
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ function App() {
         <main className="container py-8">
           <Routes>
             <Route path="/" element={<SampleHome />} />
-            <Route path="/samples" element={<FirstP />} />
+            <Route path="/samples/:id" element={<SampleDetail />} />
             <Route path="/samples/new" element={<SampleCreate />} />
           </Routes>
         </main>
