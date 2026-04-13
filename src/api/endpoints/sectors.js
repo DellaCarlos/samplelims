@@ -1,6 +1,6 @@
-import samplesClient from "../samplesClient";
+import samplesClient from "../samples-client";
 
 export const sectorApi = {
     getAll: () => samplesClient("/api/v1/sectors"),
-    getById: (id) => samplesClient(`/api/v1/sectors/${id}`)
+    getById: (name) => samplesClient(`/api/v1/sectors/${name}`)
 }

@@ -15,8 +15,11 @@ import {
 import { SECTORS } from "../types/sector-type";
 import { ANALYSES } from "../types/analyses-type";
 import { toast } from "sonner";
+import { useSectors } from "../hooks/use-sectors-getall";
 
 function SampleCreate() {
+  const { sectors, loading, erro } = useSectors();
+
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [sector, setSector] = useState("");

@@ -4,11 +4,11 @@ import { cn } from "../lib/utils";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Samples", href: "/samples" },
   { label: "New Sample", href: "/samples/new" },
+  { label: "Sectors", href: "/samples/sectorcreate" },
 ];
 
-function AppHeader() {
+export function AppHeader() {
   const location = useLocation();
 
   return (
@@ -41,5 +41,3 @@ function AppHeader() {
     </header>
   );
 }
-
-export default AppHeader;

@@ -1,4 +1,4 @@
-import samplesClient from "../samplesClient";
+import samplesClient from "../samples-client";
 
 /**
  * @returns {Promise<Sample[]>}

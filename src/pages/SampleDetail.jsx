@@ -17,7 +17,7 @@ import {
 } from "../components/ui/select";
 import { StatusIndicator } from "../components/StatusIndicator";
 import { toast } from "sonner";
-import { useSamples } from "../hooks/useSamples";
+import { useSamples } from "../hooks/use-samples-getall";
 
 export default function SampleDetail() {
   const { id } = useParams();
@@ -96,13 +96,13 @@ export default function SampleDetail() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="flex justify-between">
+        <div className="flex gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            <h1 className="text-left text-2xl font-bold tracking-tight text-foreground">
               Sample #{sample.id_sample}
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
@@ -129,14 +129,14 @@ export default function SampleDetail() {
         )}
       </div>
 
-      <div className="rounded-lg border border-border bg-card p-6 space-y-6">
+      <div className="rounded-lg border bg-card p-6 space-y-6">
         {/* Status */}
-        <div className="flex items-center justify-between rounded-md bg-secondary/50 p-4">
-          <div className="flex items-center gap-3">
+        <div className="flex justify-between rounded-md bg-secondary/40 p-2">
+          <div className="flex gap-3">
             <StatusIndicator active={isActive} showLabel />
           </div>
           {editing && (
-            <div className="flex items-center gap-2">
+            <div className="flex gap-2">
               <Label htmlFor="active-toggle" className="text-sm">
                 Active
               </Label>
@@ -150,7 +150,7 @@ export default function SampleDetail() {
         </div>
 
         {/* Name */}
-        <div className="space-y-2">
+        <div className="text-left space-y-3">
           <Label>Sample Name</Label>
           {editing ? (
             <Input value={name} onChange={(e) => setName(e.target.value)} />
@@ -160,7 +160,7 @@ export default function SampleDetail() {
         </div>
 
         {/* Sector */}
-        <div className="space-y-2">
+        <div className="text-left space-y-3">
           <Label>Sector</Label>
           {editing ? (
             <Select value={sector} onValueChange={setSector}>
@@ -176,12 +176,14 @@ export default function SampleDetail() {
               </SelectContent>
             </Select>
           ) : (
-            <Badge variant="secondary">{sample.sector_sample}</Badge>
+            <div>
+              <Badge variant="outline">{sample.sector_sample}</Badge>
+            </div>
           )}
         </div>
 
         {/* Analyses */}
-        <div className="space-y-3">
+        <div className="text-left space-y-3">
           <Label>Analyses</Label>
           {editing ? (
             <div className="grid grid-cols-2 gap-3">
@@ -210,7 +212,7 @@ export default function SampleDetail() {
         </div>
 
         {/* Metadata */}
-        <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+        <div className="text-left grid grid-cols-2 gap-4 pt-4 border-t border-border">
           <div className="space-y-1">
             <Label className="text-xs text-muted-foreground">Created At</Label>
             <p className="text-sm">
