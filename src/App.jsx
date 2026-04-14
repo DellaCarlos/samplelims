@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/samples/new" element={<SampleCreate />} />
             <Route path="/samples/:id" element={<SampleDetail  />} />
-            <Route path="/samples/sectorcreate" element={<SectorCreate  />} />
+            <Route path="/samples/sectornew" element={<SectorCreate  />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

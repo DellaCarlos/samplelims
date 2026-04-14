@@ -5,7 +5,7 @@ import { cn } from "../lib/utils";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "New Sample", href: "/samples/new" },
-  { label: "Sectors", href: "/samples/sectorcreate" },
+  { label: "Sectors", href: "/samples/sectornew" },
 ];
 
 export function AppHeader() {

@@ -93,7 +93,7 @@ function SampleCreate() {
             {ANALYSES.map((analysis) => (
               <label
                 key={analysis}
-                className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-secondary/50 transition-colors has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5"
+                className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-secondary/50 transition-colors has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5"
               >
                 <Checkbox
                   checked={selectedAnalyses.includes(analysis)}
