@@ -6,7 +6,6 @@ import { AppHeader } from "./components/AppHeader";
 import "./App.css";
 
 import Index from "./pages/Index";
-import SampleList from "./pages/SampleList";
 import SampleCreate from "./pages/SampleCreate";
 import SampleDetail from "./pages/SampleDetail";
 import NotFound from "./pages/NotFound";
@@ -23,7 +22,7 @@ function App() {
         <AppHeader />
         <main className="container py-8">
           <Routes>
-            <Route path="/" element={<SampleList />} />
+            <Route path="/" element={<Index />} />
             <Route path="/samples/new" element={<SampleCreate />} />
             <Route path="/samples/:id" element={<SampleDetail  />} />
             <Route path="/samples/sectorcreate" element={<SectorCreate  />} />

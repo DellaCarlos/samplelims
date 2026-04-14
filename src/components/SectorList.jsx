@@ -8,7 +8,12 @@ export function SectorList() {
 
   return (
     <div>
-      <h1>lista de setores</h1>
+      <h1>Lista de setores</h1>
+      <ul>
+        {sectors.map((sector) => (
+          <li key={sector.sector_name ?? sector}>{sector.sector_name ?? sector}</li>
+        ))}
+      </ul>
     </div>
   );
 }

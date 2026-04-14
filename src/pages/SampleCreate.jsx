@@ -6,21 +6,15 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Checkbox } from "../components/ui/checkbox";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "../components/ui/select";
-import { SECTORS } from "../types/sector-type";
 import { ANALYSES } from "../types/analyses-type";
 import { toast } from "sonner";
 import { useSectors } from "../hooks/use-sectors-getall";
 
 function SampleCreate() {
-  const { sectors, loading, erro } = useSectors();
-
   const navigate = useNavigate();
+  const { sectors, loading, erro } = useSectors();
   const [name, setName] = useState("");
   const [sector, setSector] = useState("");
   const [selectedAnalyses, setSelectedAnalyses] = useState([]);
@@ -29,7 +23,7 @@ function SampleCreate() {
     setSelectedAnalyses((prev) =>
       prev.includes(analysis)
         ? prev.filter((a) => a !== analysis)
-        : [...prev, analysis],
+        : [...prev, analysis]
     );
   };
 
@@ -75,18 +69,22 @@ function SampleCreate() {
 
         <div className="space-y-2">
           <Label>Sector *</Label>
-          <Select value={sector} onValueChange={setSector}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a sector" />
-            </SelectTrigger>
-            <SelectContent>
-              {SECTORS.map((s) => (
-                <SelectItem key={s} value={s}>
-                  {s}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {erro ? (
+            <p className="text-sm text-destructive">Erro ao carregar setores: {erro}</p>
+          ) : (
+            <Select value={sector} onValueChange={setSector} disabled={loading}>
+              <SelectTrigger>
+                <SelectValue placeholder={loading ? "Carregando..." : "Select a sector"} />
+              </SelectTrigger>
+              <SelectContent>
+                {sectors.map((s) => (
+                  <SelectItem key={s.id_sector} value={s.sector_name}>
+                    {s.sector_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
         </div>
 
         <div className="space-y-3">
@@ -109,8 +107,15 @@ function SampleCreate() {
 
         <div>
           <Label>Creation Date</Label>
-          <Input type="text" value={new Date().toLocaleDateString()} disabled className="bg-muted" />
-          <p className="text-xs text-muted-foreground">Automatically set to today.</p>
+          <Input
+            type="text"
+            value={new Date().toLocaleDateString()}
+            disabled
+            className="bg-muted"
+          />
+          <p className="text-xs text-muted-foreground">
+            Automatically set to today.
+          </p>
         </div>
 
         <div className="flex gap-3 pt-4 border-t border-border">

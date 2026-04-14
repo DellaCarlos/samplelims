@@ -21,11 +21,12 @@ import {
   TableRow,
 } from "../components/ui/table";
 import { StatusIndicator } from "../components/StatusIndicator";
-import { SECTORS } from "../types/sector-type";
 import { useSamples } from "../hooks/use-samples-getall";
+import { useSectors } from "../hooks/use-sectors-getall";
 
 export default function SampleList() {
   const { samples, loading, erro } = useSamples();
+  const { sectors } = useSectors();
 
   const [search, setSearch] = useState("");
   const [sectorFilter, setSectorFilter] = useState("all");
@@ -99,9 +100,9 @@ export default function SampleList() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Sectors</SelectItem>
-            {SECTORS.map((s) => (
-              <SelectItem key={s} value={s}>
-                {s}
+            {sectors.map((s) => (
+              <SelectItem key={s.id_sector} value={s.sector_name}>
+                {s.sector_name}
               </SelectItem>
             ))}
           </SelectContent>
