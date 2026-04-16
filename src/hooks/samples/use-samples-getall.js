@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { samplesApi } from "../api/endpoints/samples";
-/** @typedef {import("../types/samples-type").Sample} Sample */
+import { samplesApi } from "../../api/endpoints/samples";
+/** @typedef {import("../../types/samples-type").Sample} Sample */
 
 export function useSamples() {
   /** @type {[Sample[], Function]} */
@@ -11,7 +11,7 @@ export function useSamples() {
   useEffect(() => {
     samplesApi
       .getAll()
-      .then(setSamples)
+      .then((data) => setSamples(data ?? []))
       .catch((e) => setErro(e.message))
       .finally(() => setLoading(false));
   }, []);

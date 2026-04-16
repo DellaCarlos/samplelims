@@ -21,8 +21,8 @@ import {
   TableRow,
 } from "../components/ui/table";
 import { StatusIndicator } from "../components/StatusIndicator";
-import { useSamples } from "../hooks/use-samples-getall";
-import { useSectors } from "../hooks/use-sectors-getall";
+import { useSamples } from "../hooks/samples/use-samples-getall";
+import { useSectors } from "../hooks/sectors/use-sectors-getall";
 
 export default function SampleList() {
   const { samples, loading, erro } = useSamples();
@@ -140,7 +140,9 @@ export default function SampleList() {
                   colSpan={7}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  No samples found.
+                  {samples.length === 0
+                    ? "No samples registered yet."
+                    : "No samples match the current filters."}
                 </TableCell>
               </TableRow>
             ) : (

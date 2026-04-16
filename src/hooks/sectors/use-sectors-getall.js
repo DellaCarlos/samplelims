@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { sectorApi } from "../api/endpoints/sectors";
+import { sectorApi } from "../../api/endpoints/sectors";
 
 export function useSectors() {
   const [sectors, setSectors] = useState([]);

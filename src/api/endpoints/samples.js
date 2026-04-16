@@ -8,5 +8,5 @@ export const samplesApi = {
   getById: (id) => samplesClient(`/samples/${id}`),
   create: (data) => samplesClient("/samples", { method: "POST", body: data }),
   update: (id, data) => samplesClient(`/samples/${id}`, { method: "PUT", body: data }),
-  remove: (id) => samplesClient(`/samples/${id}`, { method: "DELETE" }),
+  delete: (id) => samplesClient(`/samples/d/${id}`, { method: "DELETE" }),
 };

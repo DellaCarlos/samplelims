@@ -6,15 +6,22 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Checkbox } from "../components/ui/checkbox";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "../components/ui/select";
 import { ANALYSES } from "../types/analyses-type";
 import { toast } from "sonner";
-import { useSectors } from "../hooks/use-sectors-getall";
+import { useSectors } from "../hooks/sectors/use-sectors-getall";
+import { useSampleCreate } from "../hooks/samples/use-sample-create";
 
 function SampleCreate() {
   const navigate = useNavigate();
-  const { sectors, loading, erro } = useSectors();
+  const { sectors, loading: loadingSectors, erro: erroSectors } = useSectors();
+  const { createSample, loading: loadingCreate } = useSampleCreate();
+
   const [name, setName] = useState("");
   const [sector, setSector] = useState("");
   const [selectedAnalyses, setSelectedAnalyses] = useState([]);
@@ -23,18 +30,29 @@ function SampleCreate() {
     setSelectedAnalyses((prev) =>
       prev.includes(analysis)
         ? prev.filter((a) => a !== analysis)
-        : [...prev, analysis]
+        : [...prev, analysis],
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !sector || selectedAnalyses.length === 0) {
       toast.error("Please fill in all required fields.");
       return;
     }
-    toast.success("Sample created successfully!");
-    navigate("/");
+
+    try {
+      await createSample({
+        name_sample: name,
+        sector_sample: sector,
+        analysis_sample: selectedAnalyses,
+        created_by_user_id_sample: "usuario_front_end", // futuramente virá do contexto de auth
+      });
+      toast.success("Sample created successfully!");
+      navigate("/");
+    } catch {
+      toast.error("Failed to create sample. Try again.");
+    }
   };
 
   return (
@@ -69,12 +87,16 @@ function SampleCreate() {
 
         <div className="space-y-2">
           <Label>Sector *</Label>
-          {erro ? (
-            <p className="text-sm text-destructive">Erro ao carregar setores: {erro}</p>
+          {erroSectors ? (
+            <p className="text-sm text-destructive">
+              Erro ao carregar setores: {erroSectors}
+            </p>
           ) : (
-            <Select value={sector} onValueChange={setSector} disabled={loading}>
+            <Select value={sector} onValueChange={setSector} disabled={loadingSectors}>
               <SelectTrigger>
-                <SelectValue placeholder={loading ? "Carregando..." : "Select a sector"} />
+                <SelectValue
+                  placeholder={loadingSectors ? "Carregando..." : "Select a sector"}
+                />
               </SelectTrigger>
               <SelectContent>
                 {sectors.map((s) => (

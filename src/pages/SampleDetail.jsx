@@ -17,12 +17,16 @@ import {
 } from "../components/ui/select";
 import { StatusIndicator } from "../components/StatusIndicator";
 import { toast } from "sonner";
-import { useSamples } from "../hooks/use-samples-getall";
+import { ANALYSES } from "../types/analyses-type";
+import { useSamples } from "../hooks/samples/use-samples-getall";
+import { useSectors } from "../hooks/sectors/use-sectors-getall";
 
 export default function SampleDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { samples, loading, erro } = useSamples();
+  const { sectors } = useSectors();
+
   const sample = samples.find((s) => s.id_sample === Number(id));
 
   const [editing, setEditing] = useState(false);
@@ -168,9 +172,9 @@ export default function SampleDetail() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {SECTORS.map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {s}
+                {sectors.map((s) => (
+                  <SelectItem key={s.id_sector} value={s.sector_name}>
+                    {s.sector_name}
                   </SelectItem>
                 ))}
               </SelectContent>

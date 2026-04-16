@@ -1,4 +1,4 @@
-import { useSectors } from "../hooks/use-sectors-getall";
+import { useSectors } from "../hooks/sectors/use-sectors-getall";
 
 export function SectorList() {
   const { sectors, loading, erro } = useSectors();
