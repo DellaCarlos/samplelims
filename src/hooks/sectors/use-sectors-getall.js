@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { sectorApi } from "../../api/endpoints/sectors";
 
 export function useSectors() {
@@ -6,12 +6,18 @@ export function useSectors() {
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState(null);
 
-  useEffect(() => {
+  const fetchSectors = useCallback(() => {
+    setLoading(true);
     sectorApi
       .getAll()
       .then(setSectors)
       .catch((e) => setErro(e.message))
       .finally(() => setLoading(false));
   }, []);
-  return { sectors, loading, erro };
+
+  useEffect(() => {
+    fetchSectors();
+  }, [fetchSectors]);
+
+  return { sectors, loading, erro, refetch: fetchSectors };
 }

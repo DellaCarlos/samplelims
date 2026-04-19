@@ -4,8 +4,8 @@ import { cn } from "../lib/utils";
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "Sectors", href: "/samples/sectorlist" },
   { label: "New Sample", href: "/samples/new" },
-  { label: "Sectors", href: "/samples/sectornew" },
 ];
 
 export function AppHeader() {

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { samplesApi } from "../../api/endpoints/samples";
 
-export function useSamples() {
-  const [samples, setSamples] = useState([]);
+export function useSampleGetById(id) {
+  const [sample, setSample] = useState(null);
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState(null);
 
-  const fetchSamples = async () => { 
+  const fetchSample = async () => {
     setLoading(true);
     setErro(null);
     try {
-      const result = await samplesApi.getAll();
-      setSamples(result);
+      const result = await samplesApi.getById(id);
+      setSample(result);
     } catch (err) {
       setErro(err.message);
     } finally {
@@ -20,8 +20,8 @@ export function useSamples() {
   };
 
   useEffect(() => {
-    fetchSamples();
-  }, []);
+    if (id) fetchSample();
+  }, [id]);
 
-  return { samples, loading, erro, refetch: fetchSamples };
+  return { sample, loading, erro, refetch: fetchSample };
 }

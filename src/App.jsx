@@ -9,7 +9,7 @@ import Index from "./pages/Index";
 import SampleCreate from "./pages/SampleCreate";
 import SampleDetail from "./pages/SampleDetail";
 import NotFound from "./pages/NotFound";
-import SectorCreate from "./pages/SectorCreate";
+import SectorList from "./pages/SectorList";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +25,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/samples/new" element={<SampleCreate />} />
             <Route path="/samples/:id" element={<SampleDetail  />} />
-            <Route path="/samples/sectornew" element={<SectorCreate  />} />
+            <Route path="/samples/sectorlist" element={<SectorList  />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

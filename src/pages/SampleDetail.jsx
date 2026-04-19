@@ -18,16 +18,16 @@ import {
 import { StatusIndicator } from "../components/StatusIndicator";
 import { toast } from "sonner";
 import { ANALYSES } from "../types/analyses-type";
-import { useSamples } from "../hooks/samples/use-samples-getall";
+import { useSampleGetById } from "../hooks/samples/use-sample-getbyid";
 import { useSectors } from "../hooks/sectors/use-sectors-getall";
+import { useSampleUpdate } from "../hooks/samples/use-sample-update";
 
 export default function SampleDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { samples, loading, erro } = useSamples();
+  const { sample, loading, erro, refetch } = useSampleGetById(id);
   const { sectors } = useSectors();
-
-  const sample = samples.find((s) => s.id_sample === Number(id));
+  const { updateSample, loading: updating } = useSampleUpdate();
 
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
@@ -81,13 +81,27 @@ export default function SampleDetail() {
     );
   };
 
-  const handleSave = () => {
+const handleSave = async () => {
     if (!name.trim() || !sector || analyses.length === 0) {
       toast.error("Please fill in all required fields.");
       return;
     }
-    toast.success("Sample updated successfully!");
-    setEditing(false);
+
+    try {
+      await updateSample(id, {
+        name_sample: name,
+        sector_sample: sector,
+        analysis_sample: analyses,
+        is_active_sample: isActive,
+      });
+
+      await refetch();
+      toast.success("Sample updated successfully!");
+      setEditing(false);
+    } catch (err) {
+      console.error("Update error:", err);
+      toast.error("Failed to update sample.");
+    }
   };
 
   const handleCancel = () => {
@@ -121,9 +135,9 @@ export default function SampleDetail() {
           </Button>
         ) : (
           <div className="flex gap-2">
-            <Button onClick={handleSave}>
+            <Button onClick={handleSave} disabled={updating}>
               <Save className="h-4 w-4" />
-              Save
+              {updating ? "Saving..." : "Save"}
             </Button>
             <Button variant="outline" onClick={handleCancel}>
               <X className="h-4 w-4" />
